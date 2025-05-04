@@ -1,0 +1,74 @@
+HOST
+2GB  – 2.388.000đ
+5GB  – 4.872.000đ
+8GB  – 6.504.000đ
+10GB – 7.200.000đ
+12GB – 8.160.000đ
+15GB – 9.600.000đ
+20GB – 12.000.000đ
+30GB – 16.080.000đ
+40GB – 20.080.000đ
+50GB – 24.000.000đ
+60GB – 28.008.000đ
+70GB – 32.040.000đ
+100GB – 43.200.000đ
+200GB – 72.000.000đ
+300GB – 96.000.000đ
+500GB – 132.000.000đ
+1TB  – 214.800.000đ
+2TB  – 294.000.000đ
+
+Mức 0:
+Doanh thu < 05tr => LCB (Thưởng đạt doanh thu): 0tr
+ - Hoa hồng web : 10%
+ - Hoa hồng Host : 10%
+
+Mức 01:
+Doanh thu >= 5tr => LCB (Thưởng đạt doanh thu): 02tr
+ - Hoa hồng web : 10%
+ - Hoa hồng Host : 10%
+
+Mức 02:
+Doanh thu >= 8tr => LCB (Thưởng đạt doanh thu): 2.5tr
+ - Hoa hồng web : 10%
+ - Hoa hồng Host : 15%
+
+Mức 03:
+Doanh thu >= 12tr => LCB (Thưởng đạt doanh thu): 03tr
+ - Hoa hồng web : 15%
+ - Hoa hồng Host : 15%
+
+Mức 04:
+Doanh thu >= 16tr => LCB (Thưởng đạt doanh thu): 04tr
+ - Hoa hồng web : 15%
+ - Hoa hồng Host : 15%
+
+Mức 05:
+Doanh thu >= 20tr => LCB (Thưởng đạt doanh thu): 05tr
+ - Hoa hồng web : 18%
+ - Hoa hồng Host : 15%
+
+Mức 06:
+Doanh thu >= 25tr => LCB (Thưởng đạt doanh thu): 06tr
+ - Hoa hồng web : 20%
+ - Hoa hồng Host : 15%
+
+Mức 07:
+Doanh thu >= 30tr => LCB (Thưởng đạt doanh thu): 07tr
+ - Hoa hồng web : 25%
+ - Hoa hồng Host : 20%
+
+Mức 08:
+Doanh thu >= 40tr => LCB (Thưởng đạt doanh thu): 08tr
+ - Hoa hồng web : 30%
+ - Hoa hồng Host : 20%
+
+Mức 09:
+Doanh thu >= 55tr => LCB (Thưởng đạt doanh thu): 09tr
+ - Hoa hồng web : 35%
+ - Hoa hồng Host : 20%
+
+Mức 10:
+Doanh thu >= 70tr => LCB (Thưởng đạt doanh thu): 10tr
+ - Hoa hồng web : 35%
+ - Hoa hồng Host : 25%
