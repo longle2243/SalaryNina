@@ -143,7 +143,7 @@ function addWebInput() {
     <label for="web1">Doanh thu Web:</label>
     <input type="number" class="web" placeholder="VD: 12" /> <!-- Nhập số triệu, ví dụ 12 cho 12 triệu -->
     
-    <label for="host1">Gói host:</label>
+    <label for="host1">Gói Host:</label>
     <select class="host" onchange="toggleCustomHostInput(this)">
       <option value="0">-- Chọn gói --</option>
       <option value="2388000">2GB – 2.388.000 đ</option>
