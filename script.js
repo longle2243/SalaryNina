@@ -15,7 +15,7 @@ function tinhLuong() {
     const isHandover = handoverChecks[i]?.checked;
     const isCoWorker = coworkerChecks[i]?.checked;
 
-    // Điều chỉnh doanh thu và host nếu chưa bàn giao hoặc có ký chung với đồng nghiệp
+    // Điều chỉnh doanh thu và host nếu Đã Bàn Giao hoặc có Có Share Doanh Thu
     doanhThu *= isHandover ? 1 : 0.5;
     doanhThu *= isCoWorker ? 0.5 : 1;
     host *= isCoWorker ? 0.5 : 1;
@@ -23,6 +23,7 @@ function tinhLuong() {
     // Cộng dồn doanh thu và host
     tongDoanhThu += doanhThu;
     tongHost += host;
+    tongDoanhThuTong = tongDoanhThu + tongHost;
   }
 
   // Lấy mức lương dựa trên tổng doanh thu
@@ -35,14 +36,17 @@ function tinhLuong() {
   const tongLuong = luongCB + hoaHongWeb + hoaHongHost;
 
   // Hiển thị kết quả lên giao diện
-  document.getElementById("result").innerHTML = `
-    <p><strong>Tổng Doanh thu:</strong> ${tongDoanhThu.toLocaleString()} đ</p>
-    <p><strong>Tổng Host:</strong> ${tongHost.toLocaleString()} đ</p>
+  const resultDiv = document.getElementById("result");
+  resultDiv.innerHTML = `
+    <p><strong>Tổng Doanh thu:</strong> ${tongDoanhThuTong.toLocaleString()} đ</p>
     <p><strong>Lương cơ bản (LCB):</strong> ${luongCB.toLocaleString()} đ</p>
     <p><strong>Hoa hồng web:</strong> ${hoaHongWeb.toLocaleString()} đ</p>
     <p><strong>Hoa hồng host:</strong> ${hoaHongHost.toLocaleString()} đ</p>
     <p><strong><u>Tổng lương nhận:</u></strong> ${tongLuong.toLocaleString()} đ</p>
   `;
+
+  // Hiển thị kết quả
+  resultDiv.classList.add('show');
 }
 
 // Hàm lấy mức lương theo tổng doanh thu
@@ -152,10 +156,10 @@ function addWebInput() {
       <option value="294000000">2TB – 294.000.000 đ</option>
     </select>
 
-    <label for="handover">Chưa bàn giao:</label>
+    <label for="handover">Đã Bàn Giao:</label>
     <input type="checkbox" class="handover" />
     
-    <label for="coworker">Ký chung với đồng nghiệp:</label>
+    <label for="coworker">Có Share Doanh Thu:</label>
     <input type="checkbox" class="coworker" />
   `;
 

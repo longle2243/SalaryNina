@@ -1,51 +1,108 @@
+/* Chung cho toàn bộ trang */
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
+  background-color: #f9f9f9;
 }
 
 h1 {
   text-align: center;
-}
-
-.container {
-  width: 80%;
-  margin: 0 auto;
-}
-
-.web-item {
   margin-bottom: 20px;
 }
 
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Các phần tử button */
 button {
   display: block;
-  margin: 20px auto;
+  width: 100%;
+  margin: 20px 0;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: #4caf50;
-  color: white;
   border: none;
   border-radius: 5px;
 }
 
-button:hover {
-  background-color: #45a049;
+button#addWebBtn {
+  background-color: #007bff;
+  /* Màu xanh dương cho nút Thêm Web */
+  color: white;
 }
 
+button#addWebBtn:hover {
+  background-color: #0056b3;
+  /* Tối màu khi hover */
+}
+
+button#tinhLuongBtn {
+  background-color: #28a745;
+  /* Màu xanh lá cho nút Tính Lương */
+  color: white;
+}
+
+button#tinhLuongBtn:hover {
+  background-color: #218838;
+  /* Tối màu khi hover */
+}
+
+/* Các phần tử input và select */
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Thanh cuộn dọc */
+#webs {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 20px;
+}
+
+/* Các phần tử web-item */
+.web-item {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Làm rõ box-shadow */
+}
+
+/* Các phần tử trong result */
 .results {
   margin-top: 20px;
   text-align: center;
 }
 
-input[type="number"],
-select {
-  width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
+/* Responsive: Chỉnh lại cho các thiết bị nhỏ hơn */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+  }
 
-input[type="checkbox"] {
-  margin-right: 10px;
+  button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  input[type="number"],
+  select {
+    font-size: 14px;
+  }
 }

@@ -13,8 +13,8 @@
   <div class="container">
     <div id="webs">
       <div class="web-item" id="web-item-1">
-        <label for="web1">Doanh thu Web 1 (triệu):</label>
-        <input type="number" class="web" placeholder="VD: 5" id="web1" />
+        <label for="web1">Doanh thu Web:</label>
+        <input type="number" class="web" placeholder="VD: 7" id="web1" />
 
         <label for="host1">Gói host 1:</label>
         <select class="host" id="host1">
@@ -39,16 +39,16 @@
           <option value="294000000">2TB – 294.000.000đ</option>
         </select>
 
-        <label for="handover1">Đã bàn giao:</label>
+        <label for="handover1">Đã Bàn Giao:</label>
         <input type="checkbox" class="handover" id="handover1" />
 
-        <label for="coworker1">Ký chung đồng nghiệp:</label>
+        <label for="coworker1">Có Share Doanh Thu:</label>
         <input type="checkbox" class="coworker" id="coworker1" />
       </div>
     </div>
 
-    <button id="addWebBtn" onclick="addWebInput()">Thêm Web</button>
-    <button onclick="tinhLuong()">Tính lương</button>
+    <button id="addWebBtn" onclick="addWebInput()">Thêm Kí Mới</button>
+    <button id="tinhLuongBtn" onclick="tinhLuong()">Tính lương</button>
 
     <div class="results" id="result"></div>
   </div>
