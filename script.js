@@ -1,91 +1,164 @@
-let webCount = 1;
-
-function addWebInput() {
-  webCount++;
-
-  const newWebItem = document.createElement('div');
-  newWebItem.classList.add('web-item');
-  newWebItem.setAttribute('id', `web-item-${webCount}`);
-
-  newWebItem.innerHTML = `
-    <label for="web${webCount}">Doanh thu Web ${webCount} (triệu):</label>
-    <input type="number" class="web" placeholder="VD: 5" id="web${webCount}" />
-
-    <label for="host${webCount}">Gói host ${webCount}:</label>
-    <select class="host" id="host${webCount}">
-      <option value="0">-- Chọn gói --</option>
-      <option value="2388000">2GB – 2.388.000đ</option>
-      <option value="4872000">5GB – 4.872.000đ</option>
-      <option value="6504000">8GB – 6.504.000đ</option>
-      <option value="7200000">10GB – 7.200.000đ</option>
-      <option value="8160000">12GB – 8.160.000đ</option>
-      <option value="9600000">15GB – 9.600.000đ</option>
-      <option value="12000000">20GB – 12.000.000đ</option>
-      <option value="16080000">30GB – 16.080.000đ</option>
-      <option value="20080000">40GB – 20.080.000đ</option>
-      <option value="24000000">50GB – 24.000.000đ</option>
-      <option value="28008000">60GB – 28.008.000đ</option>
-      <option value="32040000">70GB – 32.040.000đ</option>
-      <option value="43200000">100GB – 43.200.000đ</option>
-      <option value="72000000">200GB – 72.000.000đ</option>
-      <option value="96000000">300GB – 96.000.000đ</option>
-      <option value="132000000">500GB – 132.000.000đ</option>
-      <option value="214800000">1TB – 214.800.000đ</option>
-      <option value="294000000">2TB – 294.000.000đ</option>
-    </select>
-  `;
-
-  document.getElementById('webs').appendChild(newWebItem);
-}
-
+// Hàm tính lương và hiển thị kết quả
 function tinhLuong() {
-  const webs = document.querySelectorAll('.web');
-  const hosts = document.querySelectorAll('.host');
-  let totalWeb = 0;
-  let totalHost = 0;
+  const webInputs = document.querySelectorAll(".web");
+  const hostSelects = document.querySelectorAll(".host");
+  const handoverChecks = document.querySelectorAll(".handover");
+  const coworkerChecks = document.querySelectorAll(".coworker");
 
-  webs.forEach((input, index) => {
-    totalWeb += Number(input.value) * 1000000;
-    totalHost += Number(hosts[index].value);
-  });
+  let tongDoanhThu = 0;
+  let tongHost = 0;
 
-  const total = totalWeb + totalHost;
+  // Duyệt qua từng web để tính tổng doanh thu và tổng host
+  for (let i = 0; i < webInputs.length; i++) {
+    let doanhThu = parseFloat(webInputs[i].value || 0) * 1000000; // Nhân với 1 triệu
+    let host = parseFloat(hostSelects[i].value || 0);
+    const isHandover = handoverChecks[i]?.checked;
+    const isCoWorker = coworkerChecks[i]?.checked;
 
-  let lcb = 0;
-  let hoaHongWeb = 0;
-  let hoaHongHost = 0;
+    // Điều chỉnh doanh thu và host nếu chưa bàn giao hoặc có ký chung với đồng nghiệp
+    doanhThu *= isHandover ? 1 : 0.5;
+    doanhThu *= isCoWorker ? 0.5 : 1;
+    host *= isCoWorker ? 0.5 : 1;
 
-  const muc = [
-    { min: 70000000, lcb: 10000000, web: 0.35, host: 0.25 },
-    { min: 55000000, lcb: 9000000, web: 0.35, host: 0.2 },
-    { min: 40000000, lcb: 8000000, web: 0.3, host: 0.2 },
-    { min: 30000000, lcb: 7000000, web: 0.25, host: 0.2 },
-    { min: 25000000, lcb: 6000000, web: 0.2, host: 0.15 },
-    { min: 20000000, lcb: 5000000, web: 0.18, host: 0.15 },
-    { min: 16000000, lcb: 4000000, web: 0.15, host: 0.15 },
-    { min: 12000000, lcb: 3000000, web: 0.15, host: 0.15 },
-    { min: 8000000, lcb: 2500000, web: 0.1, host: 0.15 },
-    { min: 5000000, lcb: 2000000, web: 0.1, host: 0.1 },
-    { min: 0, lcb: 0, web: 0.1, host: 0.1 },
-  ];
-
-  for (const m of muc) {
-    if (total >= m.min) {
-      lcb = m.lcb;
-      hoaHongWeb = totalWeb * m.web;
-      hoaHongHost = totalHost * m.host;
-      break;
-    }
+    // Cộng dồn doanh thu và host
+    tongDoanhThu += doanhThu;
+    tongHost += host;
   }
 
-  const tongLuong = lcb + hoaHongWeb + hoaHongHost;
+  // Lấy mức lương dựa trên tổng doanh thu
+  const level = getSalaryLevel(tongDoanhThu);
+  const luongCB = level.lcb;
+  const hoaHongWeb = tongDoanhThu * level.web;
+  const hoaHongHost = tongHost * level.host / 1;  // Hoa hồng host tính theo đơn vị đồng
 
-  document.getElementById("result").innerHTML = ` 
-    <div class="total-income">Tổng Doanh Thu (Web + Host): ${total.toLocaleString()} VND</div>
-    <div>Lương Cơ Bản (LCB): <span class="highlight">${lcb.toLocaleString()} VND</span></div>
-    <div>Hoa hồng Web: <span class="highlight">${hoaHongWeb.toLocaleString()} VND</span></div>
-    <div>Hoa hồng Host: <span class="highlight">${hoaHongHost.toLocaleString()} VND</span></div>
-    <hr>
-    <div class="total-income">Tổng Lương Thực Nhận: <span class="highlight">${tongLuong.toLocaleString()} VND</span></div>
+  // Tính tổng lương
+  const tongLuong = luongCB + hoaHongWeb + hoaHongHost;
+
+  // Hiển thị kết quả lên giao diện
+  document.getElementById("result").innerHTML = `
+    <p><strong>Tổng Doanh thu:</strong> ${tongDoanhThu.toLocaleString()} đ</p>
+    <p><strong>Tổng Host:</strong> ${tongHost.toLocaleString()} đ</p>
+    <p><strong>Lương cơ bản (LCB):</strong> ${luongCB.toLocaleString()} đ</p>
+    <p><strong>Hoa hồng web:</strong> ${hoaHongWeb.toLocaleString()} đ</p>
+    <p><strong>Hoa hồng host:</strong> ${hoaHongHost.toLocaleString()} đ</p>
+    <p><strong><u>Tổng lương nhận:</u></strong> ${tongLuong.toLocaleString()} đ</p>
   `;
+}
+
+// Hàm lấy mức lương theo tổng doanh thu
+function getSalaryLevel(doanhThu) {
+  if (doanhThu < 5000000) {
+    return {
+      lcb: 0,
+      web: 0.1,
+      host: 0.1
+    };
+  } else if (doanhThu >= 5000000 && doanhThu < 8000000) {
+    return {
+      lcb: 2000000,
+      web: 0.1,
+      host: 0.1
+    };
+  } else if (doanhThu >= 8000000 && doanhThu < 12000000) {
+    return {
+      lcb: 2500000,
+      web: 0.1,
+      host: 0.15
+    };
+  } else if (doanhThu >= 12000000 && doanhThu < 16000000) {
+    return {
+      lcb: 3000000,
+      web: 0.15,
+      host: 0.15
+    };
+  } else if (doanhThu >= 16000000 && doanhThu < 20000000) {
+    return {
+      lcb: 4000000,
+      web: 0.15,
+      host: 0.15
+    };
+  } else if (doanhThu >= 20000000 && doanhThu < 25000000) {
+    return {
+      lcb: 5000000,
+      web: 0.18,
+      host: 0.15
+    };
+  } else if (doanhThu >= 25000000 && doanhThu < 30000000) {
+    return {
+      lcb: 6000000,
+      web: 0.2,
+      host: 0.15
+    };
+  } else if (doanhThu >= 30000000 && doanhThu < 40000000) {
+    return {
+      lcb: 7000000,
+      web: 0.25,
+      host: 0.2
+    };
+  } else if (doanhThu >= 40000000 && doanhThu < 55000000) {
+    return {
+      lcb: 8000000,
+      web: 0.3,
+      host: 0.2
+    };
+  } else if (doanhThu >= 55000000 && doanhThu < 70000000) {
+    return {
+      lcb: 9000000,
+      web: 0.35,
+      host: 0.2
+    };
+  } else {
+    return {
+      lcb: 10000000,
+      web: 0.35,
+      host: 0.25
+    };
+  }
+}
+
+// Hàm thêm Web vào form
+function addWebInput() {
+  const webContainer = document.getElementById("webs");
+
+  // Tạo một web item mới
+  const newWebItem = document.createElement("div");
+  newWebItem.classList.add("web-item");
+
+  // Tạo các input cho web
+  newWebItem.innerHTML = `
+    <label for="web1">Doanh thu Web:</label>
+    <input type="number" class="web" placeholder="VD: 12" /> <!-- Nhập số triệu, ví dụ 12 cho 12 triệu -->
+    
+    <label for="host1">Gói host:</label>
+    <select class="host">
+      <option value="0">-- Chọn gói --</option>
+      <option value="2388000">2GB – 2.388.000 đ</option>
+      <option value="4872000">5GB – 4.872.000 đ</option>
+      <option value="6504000">8GB – 6.504.000 đ</option>
+      <option value="7200000">10GB – 7.200.000 đ</option>
+      <option value="8160000">12GB – 8.160.000 đ</option>
+      <option value="9600000">15GB – 9.600.000 đ</option>
+      <option value="12000000">20GB – 12.000.000 đ</option>
+      <option value="16080000">30GB – 16.080.000 đ</option>
+      <option value="20080000">40GB – 20.080.000 đ</option>
+      <option value="24000000">50GB – 24.000.000 đ</option>
+      <option value="28008000">60GB – 28.008.000 đ</option>
+      <option value="32040000">70GB – 32.040.000 đ</option>
+      <option value="43200000">100GB – 43.200.000 đ</option>
+      <option value="72000000">200GB – 72.000.000 đ</option>
+      <option value="96000000">300GB – 96.000.000 đ</option>
+      <option value="132000000">500GB – 132.000.000 đ</option>
+      <option value="214800000">1TB – 214.800.000 đ</option>
+      <option value="294000000">2TB – 294.000.000 đ</option>
+    </select>
+
+    <label for="handover">Chưa bàn giao:</label>
+    <input type="checkbox" class="handover" />
+    
+    <label for="coworker">Ký chung với đồng nghiệp:</label>
+    <input type="checkbox" class="coworker" />
+  `;
+
+  // Thêm vào container
+  webContainer.appendChild(newWebItem);
 }
