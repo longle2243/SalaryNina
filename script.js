@@ -11,7 +11,17 @@ function tinhLuong() {
   // Duyệt qua từng web để tính tổng doanh thu và tổng host
   for (let i = 0; i < webInputs.length; i++) {
     let doanhThu = parseFloat(webInputs[i].value || 0) * 1000000; // Nhân với 1 triệu
-    let host = parseFloat(hostSelects[i].value || 0);
+    // let host = parseFloat(hostSelects[i].value || 0);
+    let hostValue = hostSelects[i].value;
+    let host = 0;
+
+    if (hostValue === "custom") {
+      const customInput = hostSelects[i].nextElementSibling;
+      host = parseFloat(customInput.value || 0);
+    } else {
+      host = parseFloat(hostValue || 0);
+    }
+
     const isHandover = handoverChecks[i]?.checked;
     const isCoWorker = coworkerChecks[i]?.checked;
 
@@ -134,7 +144,7 @@ function addWebInput() {
     <input type="number" class="web" placeholder="VD: 12" /> <!-- Nhập số triệu, ví dụ 12 cho 12 triệu -->
     
     <label for="host1">Gói host:</label>
-    <select class="host">
+    <select class="host" onchange="toggleCustomHostInput(this)">
       <option value="0">-- Chọn gói --</option>
       <option value="2388000">2GB – 2.388.000 đ</option>
       <option value="4872000">5GB – 4.872.000 đ</option>
@@ -154,7 +164,9 @@ function addWebInput() {
       <option value="132000000">500GB – 132.000.000 đ</option>
       <option value="214800000">1TB – 214.800.000 đ</option>
       <option value="294000000">2TB – 294.000.000 đ</option>
+      <option value="custom">Tự nhập</option>
     </select>
+    <input type="number" class="custom-host" style="display:none;" placeholder="Nhập giá host (đồng)" />
 
     <label for="handover">Đã Bàn Giao:</label>
     <input type="checkbox" class="handover" />
@@ -165,4 +177,13 @@ function addWebInput() {
 
   // Thêm vào container
   webContainer.appendChild(newWebItem);
+}
+
+function toggleCustomHostInput(selectElement) {
+  const customInput = selectElement.nextElementSibling; // giả sử input nằm ngay sau select
+  if (selectElement.value === "custom") {
+    customInput.style.display = "inline-block";
+  } else {
+    customInput.style.display = "none";
+  }
 }

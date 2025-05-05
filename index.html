@@ -16,8 +16,8 @@
         <label for="web1">Doanh thu Web:</label>
         <input type="number" class="web" placeholder="VD: 7" id="web1" />
 
-        <label for="host1">Gói host 1:</label>
-        <select class="host" id="host1">
+        <label for="host1">Gói Host:</label>
+        <select class="host" id="host1" onchange="toggleCustomHostInput(this)">
           <option value="0">-- Chọn gói --</option>
           <option value="2388000">2GB – 2.388.000đ</option>
           <option value="4872000">5GB – 4.872.000đ</option>
@@ -37,8 +37,9 @@
           <option value="132000000">500GB – 132.000.000đ</option>
           <option value="214800000">1TB – 214.800.000đ</option>
           <option value="294000000">2TB – 294.000.000đ</option>
+          <option value="custom">Tự nhập</option>
         </select>
-
+        <input type="number" class="custom-host" style="display:none;" placeholder="Nhập giá host (đồng)" />
         <label for="handover1">Đã Bàn Giao:</label>
         <input type="checkbox" class="handover" id="handover1" />
 
