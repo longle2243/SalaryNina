@@ -27,7 +27,7 @@ function tinhLuong() {
   }
 
   // Lấy mức lương dựa trên tổng doanh thu
-  const level = getSalaryLevel(tongDoanhThu);
+  const level = getSalaryLevel(tongDoanhThuTong);
   const luongCB = level.lcb;
   const hoaHongWeb = tongDoanhThu * level.web;
   const hoaHongHost = tongHost * level.host / 1;  // Hoa hồng host tính theo đơn vị đồng
@@ -50,62 +50,62 @@ function tinhLuong() {
 }
 
 // Hàm lấy mức lương theo tổng doanh thu
-function getSalaryLevel(doanhThu) {
-  if (doanhThu < 5000000) {
+function getSalaryLevel(tongDoanhThuTong) {
+  if (tongDoanhThuTong < 5000000) {
     return {
       lcb: 0,
       web: 0.1,
       host: 0.1
     };
-  } else if (doanhThu >= 5000000 && doanhThu < 8000000) {
+  } else if (tongDoanhThuTong >= 5000000 && tongDoanhThuTong < 8000000) {
     return {
       lcb: 2000000,
       web: 0.1,
       host: 0.1
     };
-  } else if (doanhThu >= 8000000 && doanhThu < 12000000) {
+  } else if (tongDoanhThuTong >= 8000000 && tongDoanhThuTong < 12000000) {
     return {
       lcb: 2500000,
       web: 0.1,
       host: 0.15
     };
-  } else if (doanhThu >= 12000000 && doanhThu < 16000000) {
+  } else if (tongDoanhThuTong >= 12000000 && tongDoanhThuTong < 16000000) {
     return {
       lcb: 3000000,
       web: 0.15,
       host: 0.15
     };
-  } else if (doanhThu >= 16000000 && doanhThu < 20000000) {
+  } else if (tongDoanhThuTong >= 16000000 && tongDoanhThuTong < 20000000) {
     return {
       lcb: 4000000,
       web: 0.15,
       host: 0.15
     };
-  } else if (doanhThu >= 20000000 && doanhThu < 25000000) {
+  } else if (tongDoanhThuTong >= 20000000 && tongDoanhThuTong < 25000000) {
     return {
       lcb: 5000000,
       web: 0.18,
       host: 0.15
     };
-  } else if (doanhThu >= 25000000 && doanhThu < 30000000) {
+  } else if (tongDoanhThuTong >= 25000000 && tongDoanhThuTong < 30000000) {
     return {
       lcb: 6000000,
       web: 0.2,
       host: 0.15
     };
-  } else if (doanhThu >= 30000000 && doanhThu < 40000000) {
+  } else if (tongDoanhThuTong >= 30000000 && tongDoanhThuTong < 40000000) {
     return {
       lcb: 7000000,
       web: 0.25,
       host: 0.2
     };
-  } else if (doanhThu >= 40000000 && doanhThu < 55000000) {
+  } else if (tongDoanhThuTong >= 40000000 && tongDoanhThuTong < 55000000) {
     return {
       lcb: 8000000,
       web: 0.3,
       host: 0.2
     };
-  } else if (doanhThu >= 55000000 && doanhThu < 70000000) {
+  } else if (tongDoanhThuTong >= 55000000 && tongDoanhThuTong < 70000000) {
     return {
       lcb: 9000000,
       web: 0.35,
